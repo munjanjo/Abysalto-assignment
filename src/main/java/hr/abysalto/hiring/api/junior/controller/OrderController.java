@@ -3,6 +3,8 @@ package hr.abysalto.hiring.api.junior.controller;
 import hr.abysalto.hiring.api.junior.manager.OrderManager;
 import hr.abysalto.hiring.api.junior.model.Order;
 import hr.abysalto.hiring.api.junior.model.OrderItem;
+import hr.abysalto.hiring.api.junior.model.OrderStatus;
+import jdk.jshell.Snippet;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,18 @@ public ResponseEntity<OrderResponse> create(@RequestBody CreateOrderRequest req)
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
 }
 
+@PatchMapping("/{id}/status")
+public ResponseEntity<Order> changeStatus(@RequestBody StatusUpdateRequest req,@PathVariable Long id){
+    if(req==null||req.getStatus()==null) {
+        return ResponseEntity.badRequest().build();
+    }
+
+    Order order=orderManager.updateStatus(id,req.getStatus());
+
+    return (order==null)? ResponseEntity.notFound().build():ResponseEntity.ok(order);
+
+}
+
 
     @Data
     public static class CreateOrderRequest{
@@ -54,6 +68,10 @@ public ResponseEntity<OrderResponse> create(@RequestBody CreateOrderRequest req)
     public static class OrderResponse{
         private Order order;
         private List<OrderItem> items;
+    }
+    @Data
+    public static class StatusUpdateRequest{
+    private OrderStatus status;
     }
 
 }

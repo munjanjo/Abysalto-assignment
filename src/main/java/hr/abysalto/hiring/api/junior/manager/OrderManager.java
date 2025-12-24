@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface OrderManager {
     Order createOrder(Order order, List<OrderItem> items);
-    Order getOrder(Long orderNr);
-    List <OrderItem> getOrderItems(Long orderNr);
+    Order getOrder(Long orderId);
+    List <OrderItem> getOrderItems(Long orderId);
     Iterable<Order> getAllOrders();
     List<Order> getAllOrdersSortedByTotal(boolean descending);
-    Order updateStatus (Long orderNr, OrderStatus status);
+    Order updateStatus (Long orderId, OrderStatus status);
 }
