@@ -32,6 +32,15 @@ public ResponseEntity<Order> getOrderById(@PathVariable Long id){
     Order order = orderManager.getOrder(id);
     return (order==null)?ResponseEntity.notFound().build():ResponseEntity.ok(order);
 }
+@GetMapping("/{id}/items")
+public ResponseEntity<List<OrderItem>> getOrderItems(@PathVariable Long id) {
+    Order order = orderManager.getOrder(id);
+    if (order == null) {
+        return ResponseEntity.notFound().build();
+    }
+    List<OrderItem> items = orderManager.getOrderItems(id);
+    return ResponseEntity.ok(items);
+}
 
 @PostMapping
 public ResponseEntity<OrderResponse> create(@RequestBody CreateOrderRequest req){
