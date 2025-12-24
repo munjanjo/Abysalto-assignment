@@ -42,13 +42,14 @@ public class DatabaseInitializer {
 
 		this.jdbcTemplate.execute("""
 			 CREATE TABLE "order" (
-				 order_nr INT auto_increment PRIMARY KEY,
+				 order_id INT auto_increment PRIMARY KEY,
 				 buyer_id int NOT NULL,
 				 order_status varchar(32) NOT NULL,
 				 order_time datetime NOT NULL,
 				 delivery_address_id INT NOT NULL,
 				 contact_number varchar(100) NULL,
 				 currency varchar(50) NULL,
+ 			 payment_option varchar(32) NOT NULL,
 				 total_price decimal,
 				 CONSTRAINT FK_order_to_buyer FOREIGN KEY (buyer_id) REFERENCES buyer (buyer_id),
 				 CONSTRAINT FK_order_to_delivery_address FOREIGN KEY (delivery_address_id) REFERENCES buyer_address (buyer_address_id)
@@ -58,13 +59,13 @@ public class DatabaseInitializer {
 		this.jdbcTemplate.execute("""
 			 CREATE TABLE order_item (
 				 order_item_id INT auto_increment PRIMARY KEY,
-				 order_nr int NOT NULL,
+				 order_id int NOT NULL,
 				 item_nr smallint NOT NULL,
 				 name varchar(100) NOT NULL,
 				 quantity smallint NOT NULL,
 				 price decimal,
-				 CONSTRAINT UC_order_items UNIQUE (order_item_id, order_nr),
-				 CONSTRAINT FK_order_item_to_order FOREIGN KEY (order_nr) REFERENCES "order" (order_nr)
+				 CONSTRAINT UC_order_items UNIQUE (order_item_id, order_id),
+				 CONSTRAINT FK_order_item_to_order FOREIGN KEY (order_id) REFERENCES "order" (order_id)
 			 );
  		""");
 	}
@@ -75,5 +76,8 @@ public class DatabaseInitializer {
 		this.jdbcTemplate.execute("INSERT INTO buyer (first_name, last_name, title) VALUES ('Jar Jar', 'Binks', NULL)");
 		this.jdbcTemplate.execute("INSERT INTO buyer (first_name, last_name, title) VALUES ('Han', 'Solo', NULL)");
 		this.jdbcTemplate.execute("INSERT INTO buyer (first_name, last_name, title) VALUES ('Leia', 'Organa', 'Princess')");
+
+		this.jdbcTemplate.execute("INSERT INTO buyer_address (city, street, home_number) VALUES ('Zagreb', 'Ilica', '1')");
+		this.jdbcTemplate.execute("INSERT INTO buyer_address (city, street, home_number) VALUES ('Split', 'Riva', '2')");
 	}
 }
