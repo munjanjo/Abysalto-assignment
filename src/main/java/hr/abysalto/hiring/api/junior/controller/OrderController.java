@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
-    @Autowired
 private final OrderManager orderManager;
 public OrderController(OrderManager orderManager){
     this.orderManager=orderManager;
@@ -40,6 +39,10 @@ public ResponseEntity<List<OrderItem>> getOrderItems(@PathVariable Long id) {
     }
     List<OrderItem> items = orderManager.getOrderItems(id);
     return ResponseEntity.ok(items);
+}
+@GetMapping("/sorted")
+public ResponseEntity<List<Order>> sortOrdersByTotalPrice(@RequestParam(defaultValue = "false")boolean descending){
+    return ResponseEntity.ok(orderManager.getAllOrdersSortedByTotal(descending));
 }
 
 @PostMapping

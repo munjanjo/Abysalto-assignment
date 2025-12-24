@@ -50,7 +50,7 @@ public class DatabaseInitializer {
 				 contact_number varchar(100) NULL,
 				 currency varchar(50) NULL,
  			 payment_option varchar(32) NOT NULL,
-				 total_price decimal,
+				 total_price decimal(10, 2),
 				 CONSTRAINT FK_order_to_buyer FOREIGN KEY (buyer_id) REFERENCES buyer (buyer_id),
 				 CONSTRAINT FK_order_to_delivery_address FOREIGN KEY (delivery_address_id) REFERENCES buyer_address (buyer_address_id)
 			 );
