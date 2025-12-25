@@ -49,4 +49,5 @@ public class Order {
 	private String contactNumber;
 	private String currency;
 	private BigDecimal totalPrice;
+	private String note;
 }
