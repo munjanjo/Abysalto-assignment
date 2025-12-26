@@ -1,7 +1,7 @@
 # Abysalto – Junior Developer Assignment (Java)
 
 ## Opis
-Ova aplikacija implementira sustav za upravljanje narudžbama restorana u skladu s tehničkim zadatkom za Junior Developer poziciju.
+Ova aplikacija implementira sustav za upravljanje narudžbama u skladu s tehničkim zadatkom za Junior Developer poziciju.
 
 Aplikacija omogućuje:
 - ✅ dodavanje novih narudžbi  
